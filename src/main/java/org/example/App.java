@@ -38,25 +38,35 @@ public class App {
 //
 //        // Вывод данных секрета
 //        System.out.println(response.getData());
-        String vaultAddress = "";
-        String token = "";
-        String secretPath = "";
+//        String vaultAddress = "";
+//        String token = "";
+//        String secretPath = "";
+//
+//        // Создание HTTP-клиента
+//        HttpClient client = HttpClient.newHttpClient();
+//
+//        // Создание HTTP-запроса
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(vaultAddress + "/v1/" + secretPath))
+//                .header("X-Vault-Token", token) // Токен Vault для аутентификации
+//                .GET()
+//                .build();
+//
+//        // Отправка запроса и получение ответа
+//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//
+//        // Вывод тела ответа
+//        System.out.println(response.body());
 
-        // Создание HTTP-клиента
-        HttpClient client = HttpClient.newHttpClient();
+        VaultClient vaultClient = new VaultClient();
+        try {
+            // Получение секрета
+            String secret = vaultClient.getSecret("");
+            System.out.println("Secret: " + secret);
 
-        // Создание HTTP-запроса
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(vaultAddress + "/v1/" + secretPath))
-                .header("X-Vault-Token", token) // Токен Vault для аутентификации
-                .GET()
-                .build();
-
-        // Отправка запроса и получение ответа
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        // Вывод тела ответа
-        System.out.println(response.body());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static class Secrets {
